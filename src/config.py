@@ -8,7 +8,7 @@ import os
 CODE_ASSIST_ENDPOINT = "https://cloudcode-pa.googleapis.com"
 
 # Client Configuration
-CLI_VERSION = "0.1.5"  # Match current gemini-cli version
+CLI_VERSION = "0.31.0"  # Match current gemini-cli version
 
 # OAuth Configuration
 CLIENT_ID = "681255809395-oo8ft2oprdrnp9e3aqf6av3hmdib135j.apps.googleusercontent.com"
@@ -44,75 +44,10 @@ DEFAULT_SAFETY_SETTINGS = [
 # Base Models (without search variants)
 BASE_MODELS = [
     {
-        "name": "models/gemini-2.5-pro-preview-03-25",
-        "version": "001",
-        "displayName": "Gemini 2.5 Pro Preview 03-25",
-        "description": "Preview version of Gemini 2.5 Pro from May 6th",
-        "inputTokenLimit": 1048576,
-        "outputTokenLimit": 65535,
-        "supportedGenerationMethods": ["generateContent", "streamGenerateContent"],
-        "temperature": 1.0,
-        "maxTemperature": 2.0,
-        "topP": 0.95,
-        "topK": 64
-    },
-    {
-        "name": "models/gemini-2.5-pro-preview-05-06",
-        "version": "001",
-        "displayName": "Gemini 2.5 Pro Preview 05-06",
-        "description": "Preview version of Gemini 2.5 Pro from May 6th",
-        "inputTokenLimit": 1048576,
-        "outputTokenLimit": 65535,
-        "supportedGenerationMethods": ["generateContent", "streamGenerateContent"],
-        "temperature": 1.0,
-        "maxTemperature": 2.0,
-        "topP": 0.95,
-        "topK": 64
-    },
-    {
-        "name": "models/gemini-2.5-pro-preview-06-05",
-        "version": "001",
-        "displayName": "Gemini 2.5 Pro Preview 06-05",
-        "description": "Preview version of Gemini 2.5 Pro from June 5th",
-        "inputTokenLimit": 1048576,
-        "outputTokenLimit": 65535,
-        "supportedGenerationMethods": ["generateContent", "streamGenerateContent"],
-        "temperature": 1.0,
-        "maxTemperature": 2.0,
-        "topP": 0.95,
-        "topK": 64
-    },
-    {
         "name": "models/gemini-2.5-pro",
         "version": "001",
         "displayName": "Gemini 2.5 Pro",
         "description": "Advanced multimodal model with enhanced capabilities",
-        "inputTokenLimit": 1048576,
-        "outputTokenLimit": 65535,
-        "supportedGenerationMethods": ["generateContent", "streamGenerateContent"],
-        "temperature": 1.0,
-        "maxTemperature": 2.0,
-        "topP": 0.95,
-        "topK": 64
-    },
-    {
-        "name": "models/gemini-2.5-flash-preview-05-20",
-        "version": "001",
-        "displayName": "Gemini 2.5 Flash Preview 05-20",
-        "description": "Preview version of Gemini 2.5 Flash from May 20th",
-        "inputTokenLimit": 1048576,
-        "outputTokenLimit": 65535,
-        "supportedGenerationMethods": ["generateContent", "streamGenerateContent"],
-        "temperature": 1.0,
-        "maxTemperature": 2.0,
-        "topP": 0.95,
-        "topK": 64
-    },
-    {
-        "name": "models/gemini-2.5-flash-preview-04-17",
-        "version": "001",
-        "displayName": "Gemini 2.5 Flash Preview 04-17",
-        "description": "Preview version of Gemini 2.5 Flash from April 17th",
         "inputTokenLimit": 1048576,
         "outputTokenLimit": 65535,
         "supportedGenerationMethods": ["generateContent", "streamGenerateContent"],
@@ -229,34 +164,10 @@ def _generate_thinking_variants():
             thinking_models.append(maxthinking_variant)
     return thinking_models
 
-# Generate combined variants (search + thinking combinations)
-def _generate_combined_variants():
-    """Generate combined search and thinking variants."""
-    combined_models = []
-    for model in BASE_MODELS:
-        # Only add combined variants for models that support content generation
-        # and contain "gemini-2.5-flash" or "gemini-2.5-pro" in their name
-        if ("generateContent" in model["supportedGenerationMethods"] and
-            ("gemini-2.5-flash" in model["name"] or "gemini-2.5-pro" in model["name"])):
-            
-            # search + nothinking
-            search_nothinking = model.copy()
-            search_nothinking["name"] = model["name"] + "-search-nothinking"
-            search_nothinking["displayName"] = model["displayName"] + " with Google Search (No Thinking)"
-            search_nothinking["description"] = model["description"] + " (includes Google Search grounding, thinking disabled)"
-            combined_models.append(search_nothinking)
-            
-            # search + maxthinking
-            search_maxthinking = model.copy()
-            search_maxthinking["name"] = model["name"] + "-search-maxthinking"
-            search_maxthinking["displayName"] = model["displayName"] + " with Google Search (Max Thinking)"
-            search_maxthinking["description"] = model["description"] + " (includes Google Search grounding, maximum thinking budget)"
-            combined_models.append(search_maxthinking)
-    return combined_models
-
 # Supported Models (includes base models, search variants, and thinking variants)
 # Combine all models and then sort them by name to group variants together
-all_models = BASE_MODELS + _generate_search_variants() + _generate_thinking_variants()
+#all_models = BASE_MODELS + _generate_search_variants() + _generate_thinking_variants()
+all_models = BASE_MODELS
 SUPPORTED_MODELS = sorted(all_models, key=lambda x: x['name'])
 
 # Helper function to get base model name from any variant

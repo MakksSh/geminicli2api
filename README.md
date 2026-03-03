@@ -1,14 +1,3 @@
----
-title: Gemini CLI to API Proxy
-emoji: 🤖
-colorFrom: blue
-colorTo: purple
-sdk: docker
-pinned: false
-license: mit
-app_port: 7860
----
-
 # Gemini CLI to API Proxy (geminicli2api)
 
 A FastAPI-based proxy server that converts the Gemini CLI tool into both OpenAI-compatible and native Gemini API endpoints. This allows you to leverage Google's free Gemini API quota through familiar OpenAI API interfaces or direct Gemini API calls.
@@ -181,19 +170,8 @@ print(response.json())
 ### Base Models
 - `gemini-2.5-pro`
 - `gemini-2.5-flash`
-- `gemini-1.5-pro`
-- `gemini-1.5-flash`
-- `gemini-1.0-pro`
-
-### Model Variants
-The proxy automatically creates variants for `gemini-2.5-pro` and `gemini-2.5-flash` models:
-
-- **`-search`**: Appends `-search` to a model name to enable Google Search grounding.
-  - Example: `gemini-2.5-pro-search`
-- **`-nothinking`**: Appends `-nothinking` to minimize reasoning steps.
-  - Example: `gemini-2.5-flash-nothinking`
-- **`-maxthinking`**: Appends `-maxthinking` to maximize the reasoning budget.
-  - Example: `gemini-2.5-pro-maxthinking`
+- `gemini-3.1-pro`
+- `gemini-3.0-flash`
 
 ## 📄 License
 
