@@ -1,6 +1,6 @@
-fastapi
+fastapi>=0.128
 uvicorn
 requests
 python-dotenv
 google-auth-oauthlib
-pydantic
+pydantic>=2.9,<3
